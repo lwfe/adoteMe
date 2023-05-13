@@ -7,7 +7,6 @@ import Favoritos from "../screens/Favoritos";
 import CustomDrawerMenu from "../components/CustomDrawerMenu";
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import FontAwesome from 'react-native-vector-icons/FontAwesome5'
 
 
 const Drawer = createDrawerNavigator()
