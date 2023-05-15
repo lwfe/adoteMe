@@ -1,4 +1,5 @@
 declare interface petsDTO {
+    id: number
     animal: "Gato" | "Cachorro"
     image: string
     nome: string
@@ -7,5 +8,4 @@ declare interface petsDTO {
     castrado: boolean
     raça: string
     contatoAdoção: string
-    favorite?: boolean
 }

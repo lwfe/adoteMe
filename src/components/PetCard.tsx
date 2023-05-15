@@ -1,9 +1,18 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
+
 import Foundation from 'react-native-vector-icons/Foundation'
-import Feather from 'react-native-vector-icons/Feather'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
-export function PetCard(pet: petsDTO) {
+import { useFavoritePets } from "../store/useFavoritePets";
+
+interface PetCardProps {
+    pet: petsDTO
+    isFavorite?: boolean
+}
+
+export function PetCard({ pet, isFavorite }: PetCardProps) {
+    const { addFavorite, removeFavorite } = useFavoritePets()
+
     return (
         <TouchableOpacity className="flex-row p-2 bg-background rounded-3xl shadow">
             <Image className="w-28 h-28 rounded-3xl" source={{ uri: pet.image }} />
@@ -31,13 +40,23 @@ export function PetCard(pet: petsDTO) {
                 </View>
             </View>
 
-            <TouchableOpacity className="absolute top-2 right-2  w-10 h-10 bg-background rounded-full shadow align-center justify-center items-center">
-                {pet.favorite ?
-                    <FontAwesome name="heart" size={24} color={'#ff6b81'} />
-                    :
-                    <FontAwesome name="heart-o" size={24} color={'#ff6b81'} />
-                }
-            </TouchableOpacity>
+
+            {isFavorite ?
+                <TouchableOpacity
+                    className="absolute top-3 right-3  w-9 h-9 bg-background rounded-full shadow align-center justify-center items-center"
+                    onPress={() => removeFavorite(pet.id)}
+                >
+                    <FontAwesome name="heart" size={22} color={'#ff6b81'} />
+                </TouchableOpacity>
+                :
+                <TouchableOpacity
+                    className="absolute top-3 right-3  w-9 h-9 bg-background rounded-full shadow align-center justify-center items-center"
+                    onPress={() => addFavorite(pet.id)}
+                >
+                    <FontAwesome name="heart-o" size={22} color={'#ff6b81'} />
+                </TouchableOpacity>
+            }
+
         </TouchableOpacity>
     )
 }
