@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View, FlatList, Image } from 'react-native'
+import { Text, View, FlatList, Image, Modal, TouchableOpacity } from 'react-native'
 
 import { NavBar } from '../components/NavBar'
 import { Layout } from '../components/Layout'
@@ -9,11 +9,16 @@ import { PetCard } from '../components/PetCard'
 import { usePets } from '../store/usePets'
 import { useFavoritePets } from '../store/useFavoritePets'
 
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { PetModal } from '../components/Modal'
+
 function Home({ navigation }: any) {
   const { data } = usePets()
   const { favorites } = useFavoritePets()
+
   const [gatoFilter, setGatoFilter] = useState(false)
   const [cachorroFilter, setCachorroFilter] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   return (
     <Layout>
@@ -46,6 +51,7 @@ function Home({ navigation }: any) {
             key={item.id}
             pet={item}
             isFavorite={favorites.includes(item.id)}
+            onPress={() => setShowModal(!showModal)}
           />
         }
         ListEmptyComponent={() =>
@@ -56,6 +62,9 @@ function Home({ navigation }: any) {
         }
         showsVerticalScrollIndicator={false}
       />
+
+      {showModal && <PetModal />}
+
 
     </Layout>
   )

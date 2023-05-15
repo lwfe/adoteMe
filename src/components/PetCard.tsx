@@ -8,13 +8,14 @@ import { useFavoritePets } from "../store/useFavoritePets";
 interface PetCardProps {
     pet: petsDTO
     isFavorite?: boolean
+    onPress?: () => void
 }
 
-export function PetCard({ pet, isFavorite }: PetCardProps) {
+export function PetCard({ pet, isFavorite, onPress }: PetCardProps) {
     const { addFavorite, removeFavorite } = useFavoritePets()
 
     return (
-        <TouchableOpacity className="flex-row p-2 bg-background rounded-3xl shadow">
+        <TouchableOpacity onPress={onPress} className="flex-row p-2 bg-background rounded-3xl shadow">
             <Image className="w-28 h-28 rounded-3xl" source={{ uri: pet.image }} />
             <View className="ml-4 flex justify-between bg-background">
                 <View>
