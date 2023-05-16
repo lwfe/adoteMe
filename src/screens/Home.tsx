@@ -5,20 +5,22 @@ import { NavBar } from '../components/NavBar'
 import { Layout } from '../components/Layout'
 import { FilterByButton } from '../components/FilterByButton'
 import { PetCard } from '../components/PetCard'
+import { PetModal } from '../components/PetModal'
 
 import { usePets } from '../store/usePets'
 import { useFavoritePets } from '../store/useFavoritePets'
+import { useSelectedPet } from '../store/useSelectedPet'
 
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import { PetModal } from '../components/Modal'
 
 function Home({ navigation }: any) {
   const { data } = usePets()
   const { favorites } = useFavoritePets()
+  const { selectedPet, setSelectedPet } = useSelectedPet()
 
   const [gatoFilter, setGatoFilter] = useState(false)
   const [cachorroFilter, setCachorroFilter] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  // const [selectedPet, setSelectedPet] = useState<petsDTO>({})
 
   return (
     <Layout>
@@ -51,7 +53,7 @@ function Home({ navigation }: any) {
             key={item.id}
             pet={item}
             isFavorite={favorites.includes(item.id)}
-            onPress={() => setShowModal(!showModal)}
+            onPress={() => [setSelectedPet(item), setShowModal(!showModal)]}
           />
         }
         ListEmptyComponent={() =>
@@ -63,7 +65,13 @@ function Home({ navigation }: any) {
         showsVerticalScrollIndicator={false}
       />
 
-      {showModal && <PetModal />}
+      {showModal &&
+        <PetModal
+          pet={selectedPet}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
+      }
 
 
     </Layout>
