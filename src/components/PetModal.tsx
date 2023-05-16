@@ -26,6 +26,7 @@ export function PetModal({ pet, showModal, setShowModal }: PetModalProps) {
             }}
         >
             <View className='h-full bg-[#0000008b]'>
+                <TouchableOpacity onPress={() => setShowModal(!showModal)} className="w-full h-full"></TouchableOpacity>
                 <View className='h-3/4 bg-white mt-auto rounded-t-3xl'>
                     <Image className='h-80 rounded-t-2xl' source={{ uri: pet.image }} resizeMode="cover" />
                     <TouchableOpacity className='absolute top-2 right-2 w-10 h-10  justify-center items-center rounded-full shadow-sm bg-background' onPress={() => setShowModal(!showModal)}>

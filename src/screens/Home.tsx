@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View, FlatList, Image, Modal, TouchableOpacity } from 'react-native'
+import { Text, View, FlatList, Image } from 'react-native'
 
 import { NavBar } from '../components/NavBar'
 import { Layout } from '../components/Layout'
@@ -20,7 +20,6 @@ function Home({ navigation }: any) {
   const [gatoFilter, setGatoFilter] = useState(false)
   const [cachorroFilter, setCachorroFilter] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  // const [selectedPet, setSelectedPet] = useState<petsDTO>({})
 
   return (
     <Layout>
@@ -72,7 +71,6 @@ function Home({ navigation }: any) {
           setShowModal={setShowModal}
         />
       }
-
 
     </Layout>
   )
