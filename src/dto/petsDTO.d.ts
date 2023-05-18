@@ -1,11 +1,11 @@
 declare interface petsDTO {
-    id: number
-    animal: "Gato" | "Cachorro"
-    image: string
-    nome: string
-    idade: string
-    sexo: "Macho" | "Fêmea"
-    castrado: boolean
-    raça: string
-    contatoAdoção: string
+    Id: string
+    Tipo: "Gato" | "Cachorro"
+    Image: string
+    Nome: string
+    Idade: string
+    Sexo: "Macho" | "Fêmea"
+    Castrado: boolean
+    Raça: string
+    ContatoAdoção: string
 }

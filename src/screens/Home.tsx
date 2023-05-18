@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, View, FlatList, Image } from 'react-native'
 
 import { NavBar } from '../components/NavBar'
@@ -8,12 +8,17 @@ import { PetCard } from '../components/PetCard'
 import { PetModal } from '../components/PetModal'
 
 import { usePets } from '../store/usePets'
+import { useLoading } from '../store/useLoading'
 import { useFavoritePets } from '../store/useFavoritePets'
 import { useSelectedPet } from '../store/useSelectedPet'
+import { collection, onSnapshot } from 'firebase/firestore'
 
+import { db } from '../../firebase'
+import { Loading } from '../components/Loading'
 
 function Home({ navigation }: any) {
-  const { data } = usePets()
+  const { data, setPets } = usePets()
+  const { loading, setLoading } = useLoading()
   const { favorites } = useFavoritePets()
   const { selectedPet, setSelectedPet } = useSelectedPet()
 
@@ -21,10 +26,26 @@ function Home({ navigation }: any) {
   const [cachorroFilter, setCachorroFilter] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
+  useEffect(() => {
+    setLoading(true)
+    const subscribe = onSnapshot(collection(db, "Pets"),
+      (doc) => {
+        const data = doc.docs.map(doc => {
+          return {
+            Id: doc.id,
+            ...doc.data()
+          }
+        }) as petsDTO[]
+        setPets(data)
+        setLoading(false)
+      });
+    return () => subscribe()
+  }, [])
+
   return (
     <Layout>
       <NavBar navigation={navigation} />
-
+      {loading && <Loading />}
       <View className='w-full px-4 py-6'>
         <Text className='text-2xl'>Filtrar Por</Text>
         <View className='mt-2 flex-row w-full'>
@@ -49,9 +70,9 @@ function Home({ navigation }: any) {
         data={data}
         renderItem={({ item }) =>
           <PetCard
-            key={item.id}
+            key={item.Id}
             pet={item}
-            isFavorite={favorites.includes(item.id)}
+            isFavorite={favorites.includes(Number(item.Id))}
             onPress={() => [setSelectedPet(item), setShowModal(!showModal)]}
           />
         }

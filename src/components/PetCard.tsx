@@ -16,27 +16,27 @@ export function PetCard({ pet, isFavorite, onPress }: PetCardProps) {
 
     return (
         <TouchableOpacity onPress={onPress} className="flex-row p-2 bg-background rounded-3xl shadow">
-            <Image className="w-28 h-28 rounded-3xl" source={{ uri: pet.image }} />
+            <Image className="w-28 h-28 rounded-3xl" source={{ uri: pet.Image }} />
             <View className="ml-4 flex justify-between bg-background">
                 <View>
                     <View className="flex-row items-center">
-                        <Text className="text-2xl mr-2">{pet.nome}</Text>
-                        {pet.sexo === 'Fêmea' ?
+                        <Text className="text-2xl mr-2">{pet.Nome}</Text>
+                        {pet.Sexo === 'Fêmea' ?
                             <Foundation name="female-symbol" size={24} color={"#FF6B81"} />
                             :
                             <Foundation name="male-symbol" size={24} color={"#70A1FF"} />
                         }
                     </View>
-                    <Text className="text-base font-extralight">{pet.raça}</Text>
+                    <Text className="text-base font-extralight">{pet.Raça}</Text>
                 </View>
                 <View className="w-full flex-row space-x-2 bg-background">
-                    {pet.idade &&
+                    {pet.Idade &&
                         <View className="bg-[#ff6b814d] px-2 py-1 rounded-full">
-                            <Text className="text-sm text-primaryContrast">{pet.idade.toUpperCase()}</Text>
+                            <Text className="text-sm text-primaryContrast">{pet.Idade.toUpperCase()}</Text>
                         </View>
                     }
                     <View className="bg-[#ff6b814d] px-2 py-1 rounded-full">
-                        {pet.castrado ? <Text className="text-sm text-primaryContrast">CASTRADO</Text> : <Text className="text-sm text-primaryContrast">NÃO CASTRADO</Text>}
+                        {pet.Castrado ? <Text className="text-sm text-primaryContrast">CASTRADO</Text> : <Text className="text-sm text-primaryContrast">NÃO CASTRADO</Text>}
                     </View>
                 </View>
             </View>
@@ -45,14 +45,14 @@ export function PetCard({ pet, isFavorite, onPress }: PetCardProps) {
             {isFavorite ?
                 <TouchableOpacity
                     className="absolute top-3 right-3  w-9 h-9 bg-background rounded-full shadow align-center justify-center items-center"
-                    onPress={() => removeFavorite(pet.id)}
+                    onPress={() => removeFavorite(Number(pet.Id))}
                 >
                     <FontAwesome name="heart" size={22} color={'#ff6b81'} />
                 </TouchableOpacity>
                 :
                 <TouchableOpacity
                     className="absolute top-3 right-3  w-9 h-9 bg-background rounded-full shadow align-center justify-center items-center"
-                    onPress={() => addFavorite(pet.id)}
+                    onPress={() => addFavorite(Number(pet.Id))}
                 >
                     <FontAwesome name="heart-o" size={22} color={'#ff6b81'} />
                 </TouchableOpacity>

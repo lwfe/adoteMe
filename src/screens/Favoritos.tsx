@@ -12,7 +12,7 @@ function Favoritos({ navigation }: any) {
   const { data } = usePets()
   const { favorites } = useFavoritePets()
 
-  const FilteredData = data.filter(pet => favorites.includes(pet.id))
+  const FilteredData = data.filter(pet => favorites.includes(Number(pet.Id)))
 
   return (
     <Layout>
@@ -26,9 +26,9 @@ function Favoritos({ navigation }: any) {
         data={FilteredData}
         renderItem={({ item }) =>
           <PetCard
-            key={item.id}
+            key={item.Id}
             pet={item}
-            isFavorite={favorites.includes(item.id)}
+            isFavorite={favorites.includes(Number(item.Id))}
           />
         }
         ListEmptyComponent={() =>
